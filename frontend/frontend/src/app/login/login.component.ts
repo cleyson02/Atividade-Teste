@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatBottomSheet, MatBottomSheetModule } from '@angular/material/bottom-sheet';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AuthService } from '../services/auth.service';
 import { CepService } from '../services/cep.service';
 import { BottomSheetComponent } from '../bottom-sheet/bottom-sheet.component';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +17,7 @@ import { BottomSheetComponent } from '../bottom-sheet/bottom-sheet.component';
     ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatBottomSheetModule
+    MatButtonModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -56,24 +53,24 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe({
-        next: (response: any) => {
+      this.authService.login(this.loginForm.value).subscribe(
+        response => {
           this.mostrarSucesso = true;
           this.mensagemErro = '';
         },
-        error: (error: any) => {
+        error => {
           this.mostrarSucesso = false;
           this.mensagemErro = 'Erro no login. Verifique suas credenciais.';
         }
-      });
+      );
     }
   }
 
   onCepBlur(): void {
     const cep = this.loginForm.get('cep')?.value;
     if (cep && cep.length === 8) {
-      this.cepService.buscarCep(cep).subscribe({
-        next: (data: any) => {
+      this.cepService.buscarCep(cep).subscribe(
+        data => {
           this.loginForm.patchValue({
             endereco: {
               logradouro: data.logradouro,
@@ -83,10 +80,10 @@ export class LoginComponent {
             }
           });
         },
-        error: (error: any) => {
+        error => {
           console.error('Erro ao buscar CEP:', error);
         }
-      });
+      );
     }
   }
 
@@ -97,14 +94,14 @@ export class LoginComponent {
   recuperarSenha(): void {
     const email = this.loginForm.get('login')?.value;
     if (email) {
-      this.authService.recuperarSenha(email).subscribe({
-        next: (response: any) => {
+      this.authService.recuperarSenha(email).subscribe(
+        response => {
           alert('Email de recuperação enviado com sucesso!');
         },
-        error: (error: any) => {
+        error => {
           alert('Erro ao enviar email de recuperação.');
         }
-      });
+      );
     }
   }
 }
