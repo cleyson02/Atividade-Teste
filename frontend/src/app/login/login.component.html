@@ -1,110 +1,122 @@
 <div class="login-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
+  <div class="login-card">
+    <div class="card-header">
+      <div class="logo-container">
+        <div class="logo-icon">👤</div>
+      </div>
+      <h1 class="login-title">Bem-vindo</h1>
+      <p class="login-subtitle">Entre com suas credenciais</p>
+    </div>
     
-    <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <!-- Campo de Email -->
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="login" type="email" required>
-          <mat-error *ngIf="loginForm.get('login')?.hasError('required')">
-            Email é obrigatório
-          </mat-error>
-          <mat-error *ngIf="loginForm.get('login')?.hasError('email')">
-            Formato de email inválido
-          </mat-error>
-        </mat-form-field>
-
-        <!-- Campo de Senha -->
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Senha</mat-label>
-          <input matInput formControlName="senha" type="password" required>
-          <mat-error *ngIf="loginForm.get('senha')?.hasError('required')">
-            Senha é obrigatória
-          </mat-error>
-          <mat-error *ngIf="loginForm.get('senha')?.hasError('minlength')">
-            Senha deve ter pelo menos 8 caracteres
-          </mat-error>
-          <mat-error *ngIf="loginForm.get('senha')?.hasError('pattern')">
-            Senha deve conter letras maiúsculas, minúsculas, números e símbolos
-          </mat-error>
-        </mat-form-field>
-
-        <!-- Campo de CEP -->
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>CEP</mat-label>
-          <input matInput formControlName="cep" 
-                 (blur)="onCepBlur()" 
-                 maxlength="8" required>
-          <mat-error *ngIf="loginForm.get('cep')?.hasError('required')">
-            CEP é obrigatório
-          </mat-error>
-          <mat-error *ngIf="loginForm.get('cep')?.hasError('pattern')">
-            CEP deve conter 8 dígitos
-          </mat-error>
-        </mat-form-field>
-
-        <!-- Campos de Endereço (preenchidos automaticamente) -->
-        <div formGroupName="endereco">
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Logradouro</mat-label>
-            <input matInput formControlName="logradouro" readonly>
+    <mat-card class="form-card">
+      <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <!-- Campo de Email -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="login" type="email" required>
+            <mat-error *ngIf="loginForm.get('login')?.hasError('required')">
+              Email é obrigatório
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('login')?.hasError('email')">
+              Formato de email inválido
+            </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Bairro</mat-label>
-            <input matInput formControlName="bairro" readonly>
+          <!-- Campo de Senha -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Senha</mat-label>
+            <input matInput formControlName="senha" type="password" required>
+            <mat-error *ngIf="loginForm.get('senha')?.hasError('required')">
+              Senha é obrigatória
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('senha')?.hasError('minlength')">
+              Senha deve ter pelo menos 8 caracteres
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('senha')?.hasError('pattern')">
+              Senha deve conter letras maiúsculas, minúsculas, números e símbolos
+            </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Cidade</mat-label>
-            <input matInput formControlName="localidade" readonly>
+          <!-- Campo de CEP -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>CEP</mat-label>
+            <input matInput formControlName="cep" 
+                   (blur)="onCepBlur()" 
+                   maxlength="8" required>
+            <mat-error *ngIf="loginForm.get('cep')?.hasError('required')">
+              CEP é obrigatório
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('cep')?.hasError('pattern')">
+              CEP deve conter 8 dígitos
+            </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Estado</mat-label>
-            <input matInput formControlName="uf" readonly>
+          <!-- Campos de Endereço -->
+          <div formGroupName="endereco" class="address-section">
+            <h3 class="section-title">📍 Endereço</h3>
+            <div class="address-grid">
+              <mat-form-field appearance="outline" class="grid-item">
+                <mat-label>Logradouro</mat-label>
+                <input matInput formControlName="logradouro" readonly>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="grid-item">
+                <mat-label>Bairro</mat-label>
+                <input matInput formControlName="bairro" readonly>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="grid-item">
+                <mat-label>Cidade</mat-label>
+                <input matInput formControlName="localidade" readonly>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="grid-item">
+                <mat-label>Estado</mat-label>
+                <input matInput formControlName="uf" readonly>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Campo Livre -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Comentários Adicionais</mat-label>
+            <textarea matInput formControlName="campoLivre" rows="3"></textarea>
           </mat-form-field>
+
+          <!-- Botões -->
+          <div class="button-section">
+            <button type="button" mat-stroked-button color="primary" 
+                    (click)="openBottomSheet()" class="full-width secondary-btn">
+              <span class="button-icon">ℹ️</span>
+              Informações Adicionais
+            </button>
+            
+            <button mat-raised-button color="primary" type="submit" 
+                    [disabled]="!loginForm.valid" class="full-width primary-btn">
+              <span class="button-icon">🔐</span>
+              Entrar
+            </button>
+          </div>
+        </form>
+
+        <!-- Link para recuperação de senha -->
+        <div class="recovery-link">
+          <a href="#" (click)="recuperarSenha(); $event.preventDefault()">
+            <span class="link-icon">❓</span>
+            Esqueci minha senha
+          </a>
         </div>
 
-        <!-- Campo Livre -->
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Comentários Adicionais</mat-label>
-          <textarea matInput formControlName="campoLivre" rows="3"></textarea>
-        </mat-form-field>
+        <!-- Mensagem de sucesso -->
+        <div *ngIf="mostrarSucesso" class="success-message">
+          <span class="message-icon">✅</span>
+          <h3>Sucesso! Você está logado</h3>
+        </div>
 
-        <!-- Botão para abrir Bottom Sheet -->
-        <button type="button" mat-raised-button color="primary" 
-                (click)="openBottomSheet()" class="full-width">
-          Informações Adicionais
-        </button>
-
-        <!-- Botão de Submit -->
-        <button mat-raised-button color="primary" type="submit" 
-                [disabled]="!loginForm.valid" class="full-width">
-          Entrar
-        </button>
-      </form>
-
-      <!-- Link para recuperação de senha -->
-      <div class="recovery-link">
-        <a href="#" (click)="recuperarSenha(); $event.preventDefault()">
-          Esqueci minha senha
-        </a>
-      </div>
-
-      <!-- Mensagem de sucesso -->
-      <div *ngIf="mostrarSucesso" class="success-message">
-        <h2>SUCESSO! VOCÊ ESTÁ LOGADO</h2>
-      </div>
-
-      <!-- Mensagem de erro -->
-      <div *ngIf="mensagemErro" class="error-message">
-        {{ mensagemErro }}
-      </div>
-    </mat-card-content>
-  </mat-card>
+        <!-- Mensagem de erro -->
+        <div *ngIf="mensagemErro" class="error-message">
+          <span class="message-icon">❌</span>
+          <span>{{ mensagemErro }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
