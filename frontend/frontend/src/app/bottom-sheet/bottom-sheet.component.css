@@ -1,0 +1,13 @@
+.bottom-sheet-container {
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+h3 {
+  margin-top: 0;
+  color: #333;
+}

@@ -1,0 +1,110 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Campo de Email -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="login" type="email" required>
+          <mat-error *ngIf="loginForm.get('login')?.hasError('required')">
+            Email é obrigatório
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('login')?.hasError('email')">
+            Formato de email inválido
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Campo de Senha -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Senha</mat-label>
+          <input matInput formControlName="senha" type="password" required>
+          <mat-error *ngIf="loginForm.get('senha')?.hasError('required')">
+            Senha é obrigatória
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('senha')?.hasError('minlength')">
+            Senha deve ter pelo menos 8 caracteres
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('senha')?.hasError('pattern')">
+            Senha deve conter letras maiúsculas, minúsculas, números e símbolos
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Campo de CEP -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>CEP</mat-label>
+          <input matInput formControlName="cep" 
+                 (blur)="onCepBlur()" 
+                 maxlength="8" required>
+          <mat-error *ngIf="loginForm.get('cep')?.hasError('required')">
+            CEP é obrigatório
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('cep')?.hasError('pattern')">
+            CEP deve conter 8 dígitos
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Campos de Endereço (preenchidos automaticamente) -->
+        <div formGroupName="endereco">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Logradouro</mat-label>
+            <input matInput formControlName="logradouro" readonly>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Bairro</mat-label>
+            <input matInput formControlName="bairro" readonly>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Cidade</mat-label>
+            <input matInput formControlName="localidade" readonly>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Estado</mat-label>
+            <input matInput formControlName="uf" readonly>
+          </mat-form-field>
+        </div>
+
+        <!-- Campo Livre -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Comentários Adicionais</mat-label>
+          <textarea matInput formControlName="campoLivre" rows="3"></textarea>
+        </mat-form-field>
+
+        <!-- Botão para abrir Bottom Sheet -->
+        <button type="button" mat-raised-button color="primary" 
+                (click)="openBottomSheet()" class="full-width">
+          Informações Adicionais
+        </button>
+
+        <!-- Botão de Submit -->
+        <button mat-raised-button color="primary" type="submit" 
+                [disabled]="!loginForm.valid" class="full-width">
+          Entrar
+        </button>
+      </form>
+
+      <!-- Link para recuperação de senha -->
+      <div class="recovery-link">
+        <a href="#" (click)="recuperarSenha(); $event.preventDefault()">
+          Esqueci minha senha
+        </a>
+      </div>
+
+      <!-- Mensagem de sucesso -->
+      <div *ngIf="mostrarSucesso" class="success-message">
+        <h2>SUCESSO! VOCÊ ESTÁ LOGADO</h2>
+      </div>
+
+      <!-- Mensagem de erro -->
+      <div *ngIf="mensagemErro" class="error-message">
+        {{ mensagemErro }}
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
