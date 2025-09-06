@@ -38,9 +38,9 @@ export class LoginComponent {
       senha: ['', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])')
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$')
       ]],
-      cep: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
+      cep: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
       endereco: this.fb.group({
         logradouro: [''],
         bairro: [''],
