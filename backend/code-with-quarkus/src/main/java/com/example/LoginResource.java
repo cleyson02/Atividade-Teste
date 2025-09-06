@@ -42,10 +42,10 @@ public class LoginResource {
         Map<String, String> endereco = new HashMap<>();
         
         if ("01001000".equals(cep)) {
-            endereco.put("logradouro", "Praça da Sé");
-            endereco.put("bairro", "Sé");
-            endereco.put("localidade", "São Paulo");
-            endereco.put("uf", "SP");
+            endereco.put("logradouro", "Rua Tocantins");
+            endereco.put("bairro", "Floresta");
+            endereco.put("localidade", "Belo Jardim");
+            endereco.put("uf", "PE");
             return Response.ok(endereco).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND)
